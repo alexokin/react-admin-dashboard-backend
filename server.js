@@ -14,9 +14,12 @@ import salesRoutes from "./api/sales/sales.routes.js"
 // import User from "./api/models/user/user.js";
 import  ProductStat  from "./api/models/product/productStat.js";
 import  Product  from "./api/models/product/product.js";
-import { dataUser, dataProduct, dataProductStat} from "./data/data.js"
+import Transaction from "./api/models/transaction/transaction.js";
+import { dataUser, dataProduct, dataProductStat, dataTransaction} from "./data/data.js"
+
 
 // Config
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -45,5 +48,6 @@ mongoose
     // User.insertMany(dataUser)
     // Product.insertMany(dataProduct)
     // ProductStat.insertMany(dataProductStat)
+    // Transaction.insertMany(dataTransaction)
   })
   .catch((error) => console.log(`${error} did not connect`));
