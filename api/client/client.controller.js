@@ -1,4 +1,4 @@
-
+import getCountryIso3 from "country-iso-2-to-3";
 import { generateSort } from "../../services/utils.service.js";
 import Product from "../models/product/product.js";
 import ProductStat from "../models/product/productStat.js";
@@ -37,7 +37,6 @@ export async function getCustomers(req, res) {
 export async function getTransactions(req, res) {
   try {
     const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
-    
 
     const sortFormatted = Boolean(sort) ? generateSort(sort) : {};
     const transactions = await Transaction.find({
@@ -60,5 +59,29 @@ export async function getTransactions(req, res) {
     });
   } catch (err) {
     res.status(500).send({ err: "Failed to get transactions" });
+  }
+}
+
+export async function getGeography(req, res) {
+  try {
+    const users = await User.find();
+    const mappedLocations = users.reduce((acc, { country }) => {
+      const countryISO3 = getCountryIso3(country);
+      if (!acc[countryISO3]) {
+        acc[countryISO3] = 0;
+      }
+      acc[countryISO3]++;
+      return acc;
+    }, {});
+
+    const formattedLocation = Object.entries(mappedLocations).map(
+      ([country, count]) => {
+        return { id: country, value: count };
+      }
+    );
+
+    res.status(200).json(formattedLocation);
+  } catch (error) {
+    res.status(500).send({ err: "Failed to get geography" });
   }
 }
