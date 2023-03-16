@@ -15,8 +15,10 @@ import salesRoutes from "./api/sales/sales.routes.js"
 import  ProductStat  from "./api/models/product/productStat.js";
 import  Product  from "./api/models/product/product.js";
 import Transaction from "./api/models/transaction/transaction.js";
-import { dataUser, dataProduct, dataProductStat, dataTransaction, dataOverallStat} from "./data/data.js"
+import { dataAffiliateStat ,dataUser, dataProduct, dataProductStat, dataTransaction, dataOverallStat} from "./data/data.js"
 import OverallStat from "./api/models/overallStat/overallStat.js";
+import AffiliateStat from "./api/models/affiliateStat/affiliateStat.js";
+
 
 
 // Config
@@ -51,5 +53,6 @@ mongoose
     // ProductStat.insertMany(dataProductStat)
     // Transaction.insertMany(dataTransaction)
     // OverallStat.insertMany(dataOverallStat)
+    // AffiliateStat.insertMany(dataAffiliateStat)
   })
   .catch((error) => console.log(`${error} did not connect`));
